@@ -17,6 +17,8 @@ MERGED from [org.firstinspires.ftc:Tfod:8.1.1] /Users/ryanabraham/.gradle/caches
 MERGED from [org.tensorflow:tensorflow-lite-task-vision:0.2.0] /Users/ryanabraham/.gradle/caches/transforms-3/857c8952c805ae40046541e7459d870d/transformed/jetified-tensorflow-lite-task-vision-0.2.0/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.appcompat:appcompat:1.2.0] /Users/ryanabraham/.gradle/caches/transforms-3/c0d5df9d80de0ad9d82a73a0a0f13039/transformed/appcompat-1.2.0/AndroidManifest.xml:17:1-24:12
 MERGED from [org.firstinspires.ftc:gameAssets-PowerPlay:1.0.0] /Users/ryanabraham/.gradle/caches/transforms-3/6d8bfaf8a2faed6806fd3fd5f32b2177/transformed/jetified-gameAssets-PowerPlay-1.0.0/AndroidManifest.xml:2:1-11:12
+MERGED from [org.openftc:easyopencv:1.5.3] /Users/ryanabraham/.gradle/caches/transforms-3/8e14627b46122dea8f76ea106b8fd6cd/transformed/jetified-easyopencv-1.5.3/AndroidManifest.xml:2:1-11:12
+MERGED from [org.openftc:apriltag:1.1.1] /Users/ryanabraham/.gradle/caches/transforms-3/c7267821a42d28a68dd26e483855cd02/transformed/jetified-apriltag-1.1.1/AndroidManifest.xml:2:1-11:12
 MERGED from [com.journeyapps:zxing-android-embedded:4.3.0] /Users/ryanabraham/.gradle/caches/transforms-3/2c467a7941e2560cd8b6ba7d820fcc47/transformed/jetified-zxing-android-embedded-4.3.0/AndroidManifest.xml:17:1-56:12
 MERGED from [com.jakewharton.threetenabp:threetenabp:1.3.1] /Users/ryanabraham/.gradle/caches/transforms-3/6c16029405e7e43f49f254b70d03b0be/transformed/jetified-threetenabp-1.3.1/AndroidManifest.xml:2:1-9:12
 MERGED from [org.tensorflow:tensorflow-lite-task-base:0.2.0] /Users/ryanabraham/.gradle/caches/transforms-3/3c53b1c3edb3d2f98ae1517e7fb0c805/transformed/jetified-tensorflow-lite-task-base-0.2.0/AndroidManifest.xml:2:1-6:12
@@ -40,6 +42,7 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/ryanabraham/.gradl
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/ryanabraham/.gradle/caches/transforms-3/3bcc0b0dfe006409afe9296bf2794e58/transformed/lifecycle-livedata-2.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/ryanabraham/.gradle/caches/transforms-3/534658c27093232e5599c46c9ae69ffe/transformed/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/ryanabraham/.gradle/caches/transforms-3/87f964245aae700935f32e682adb56e6/transformed/core-runtime-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [org.openftc:opencv-repackaged-bundled-dylibs:4.5.3-C] /Users/ryanabraham/.gradle/caches/transforms-3/35a6bd3df7711ca5ed114688174c9a6f/transformed/jetified-opencv-repackaged-bundled-dylibs-4.5.3-C/AndroidManifest.xml:2:1-11:12
 MERGED from [org.tensorflow:tensorflow-lite:2.4.0] /Users/ryanabraham/.gradle/caches/transforms-3/9a3136011914aa1c98714178ef0cf60c/transformed/jetified-tensorflow-lite-2.4.0/AndroidManifest.xml:2:1-12:12
 INJECTED from /Users/ryanabraham/Documents/road-runner-quickstart/TeamCode/src/main/AndroidManifest.xml:8:1-11:12
 INJECTED from /Users/ryanabraham/Documents/road-runner-quickstart/TeamCode/src/main/AndroidManifest.xml:8:1-11:12
@@ -128,6 +131,10 @@ MERGED from [androidx.appcompat:appcompat:1.2.0] /Users/ryanabraham/.gradle/cach
 MERGED from [androidx.appcompat:appcompat:1.2.0] /Users/ryanabraham/.gradle/caches/transforms-3/c0d5df9d80de0ad9d82a73a0a0f13039/transformed/appcompat-1.2.0/AndroidManifest.xml:20:5-22:41
 MERGED from [org.firstinspires.ftc:gameAssets-PowerPlay:1.0.0] /Users/ryanabraham/.gradle/caches/transforms-3/6d8bfaf8a2faed6806fd3fd5f32b2177/transformed/jetified-gameAssets-PowerPlay-1.0.0/AndroidManifest.xml:7:5-9:41
 MERGED from [org.firstinspires.ftc:gameAssets-PowerPlay:1.0.0] /Users/ryanabraham/.gradle/caches/transforms-3/6d8bfaf8a2faed6806fd3fd5f32b2177/transformed/jetified-gameAssets-PowerPlay-1.0.0/AndroidManifest.xml:7:5-9:41
+MERGED from [org.openftc:easyopencv:1.5.3] /Users/ryanabraham/.gradle/caches/transforms-3/8e14627b46122dea8f76ea106b8fd6cd/transformed/jetified-easyopencv-1.5.3/AndroidManifest.xml:7:5-9:41
+MERGED from [org.openftc:easyopencv:1.5.3] /Users/ryanabraham/.gradle/caches/transforms-3/8e14627b46122dea8f76ea106b8fd6cd/transformed/jetified-easyopencv-1.5.3/AndroidManifest.xml:7:5-9:41
+MERGED from [org.openftc:apriltag:1.1.1] /Users/ryanabraham/.gradle/caches/transforms-3/c7267821a42d28a68dd26e483855cd02/transformed/jetified-apriltag-1.1.1/AndroidManifest.xml:7:5-9:41
+MERGED from [org.openftc:apriltag:1.1.1] /Users/ryanabraham/.gradle/caches/transforms-3/c7267821a42d28a68dd26e483855cd02/transformed/jetified-apriltag-1.1.1/AndroidManifest.xml:7:5-9:41
 MERGED from [com.journeyapps:zxing-android-embedded:4.3.0] /Users/ryanabraham/.gradle/caches/transforms-3/2c467a7941e2560cd8b6ba7d820fcc47/transformed/jetified-zxing-android-embedded-4.3.0/AndroidManifest.xml:20:5-44
 MERGED from [com.journeyapps:zxing-android-embedded:4.3.0] /Users/ryanabraham/.gradle/caches/transforms-3/2c467a7941e2560cd8b6ba7d820fcc47/transformed/jetified-zxing-android-embedded-4.3.0/AndroidManifest.xml:20:5-44
 MERGED from [com.jakewharton.threetenabp:threetenabp:1.3.1] /Users/ryanabraham/.gradle/caches/transforms-3/6c16029405e7e43f49f254b70d03b0be/transformed/jetified-threetenabp-1.3.1/AndroidManifest.xml:5:5-44
@@ -172,6 +179,8 @@ MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/ryanabraha
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/ryanabraham/.gradle/caches/transforms-3/534658c27093232e5599c46c9ae69ffe/transformed/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/ryanabraham/.gradle/caches/transforms-3/87f964245aae700935f32e682adb56e6/transformed/core-runtime-2.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/ryanabraham/.gradle/caches/transforms-3/87f964245aae700935f32e682adb56e6/transformed/core-runtime-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [org.openftc:opencv-repackaged-bundled-dylibs:4.5.3-C] /Users/ryanabraham/.gradle/caches/transforms-3/35a6bd3df7711ca5ed114688174c9a6f/transformed/jetified-opencv-repackaged-bundled-dylibs-4.5.3-C/AndroidManifest.xml:7:5-9:41
+MERGED from [org.openftc:opencv-repackaged-bundled-dylibs:4.5.3-C] /Users/ryanabraham/.gradle/caches/transforms-3/35a6bd3df7711ca5ed114688174c9a6f/transformed/jetified-opencv-repackaged-bundled-dylibs-4.5.3-C/AndroidManifest.xml:7:5-9:41
 MERGED from [org.tensorflow:tensorflow-lite:2.4.0] /Users/ryanabraham/.gradle/caches/transforms-3/9a3136011914aa1c98714178ef0cf60c/transformed/jetified-tensorflow-lite-2.4.0/AndroidManifest.xml:7:5-8:41
 MERGED from [org.tensorflow:tensorflow-lite:2.4.0] /Users/ryanabraham/.gradle/caches/transforms-3/9a3136011914aa1c98714178ef0cf60c/transformed/jetified-tensorflow-lite-2.4.0/AndroidManifest.xml:7:5-8:41
 INJECTED from /Users/ryanabraham/Documents/road-runner-quickstart/TeamCode/src/main/AndroidManifest.xml
