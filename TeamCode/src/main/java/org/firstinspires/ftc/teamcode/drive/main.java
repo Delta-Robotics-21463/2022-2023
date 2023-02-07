@@ -22,6 +22,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.opencv.core.Mat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -37,13 +38,20 @@ public class main extends OpMode {
     private DcMotor rightDrive = null;
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
-    private DcMotorSimple lift = null;
+    private DcMotor lift = null;
     private BNO055IMU imu;
-    private boolean toggle = false;
-//    private boolean wasPressed = false;
+    private boolean toggle = true;
+    float armPosition=0f;
+    float turretPosition=0.61f;
+    boolean lifting;
+    int goUp=0;
+    //    private boolean wasPressed = false;
 //    private boolean isClosed = false;
     Servo arm;
     Servo turret;
+    int startPosition;
+    int divisionFactor=1;
+
     // Define class members
 
     @Override
@@ -56,7 +64,9 @@ public class main extends OpMode {
         rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER); //use speed estimated by encoder
         backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive" );
         backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER); //use speed estimated by encoder
-        lift = hardwareMap.get(DcMotorSimple.class,"lift");
+        lift = hardwareMap.get(DcMotor.class,"lift");
+        lift.setTargetPosition(0);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive" );
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER); //use speed estimated by encoder
         arm=hardwareMap.get(Servo.class, "arm");
@@ -71,9 +81,9 @@ public class main extends OpMode {
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        backRightDrive.setDirection(DcMotor.Direction.FORWARD);
-
+        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        startPosition = lift.getCurrentPosition();
     }
 
     @Override
@@ -83,81 +93,100 @@ public class main extends OpMode {
 
         double leftBackPower;
         double rightBackPower;
-        // }
-        // Choose to drive using either Tank Mode, or POV Mode
-        // Comment out the method that's not used.  The default below is POV.
-
-        // POV Mode uses left stick to go forward, and right stick to turn.
-        // - This uses basic math to combine motions and is easier to drive straight.
-
-        // Tank Mode uses one stick to control each wheel.
-        // - This requires no math, but it is hard to drive forward slowly and keep straight.
-        // leftPower  = -gamepad1.left_stick_y ;
-        // rightPower = -gamepad1.right_stick_y ;
+//        lift.setMode();
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         imu.getPosition();
         float heading = angles.firstAngle;
         heading= BigDecimal.valueOf(heading)
                 .setScale(0, RoundingMode.HALF_DOWN)
                 .floatValue();
-        double drive=-gamepad1.left_stick_y;
-        double strafe=gamepad1.left_stick_x;
+        double drive=gamepad1.left_stick_y;
+        double strafe=gamepad1.right_stick_x;
+        double turn = gamepad1.left_stick_x;
         if (heading>60.0&&heading<150&&toggle) {
-            strafe =-gamepad1.left_stick_y;
-            drive=-gamepad1.left_stick_x;
-        } else if (heading<-60&&heading>-150&&toggle) {
-            strafe=gamepad1.left_stick_y;
+            turn =-gamepad1.left_stick_y;
             drive=gamepad1.left_stick_x;
+        } else if (heading<-60&&heading>-150&&toggle) {
+            turn=gamepad1.left_stick_y;
+            drive=-gamepad1.left_stick_x;
         } else if ((heading>150||heading<-150)&&toggle) {
-            drive=gamepad1.left_stick_y;
-            strafe=-gamepad1.left_stick_x;
+            drive=-gamepad1.left_stick_y;
+            turn=-gamepad1.left_stick_x;
         }
-        double turn = gamepad1.right_stick_x;
         leftPower = Range.clip(1 * (drive + strafe + turn), -1.0, 1.0);
         leftBackPower = Range.clip(1 * (drive - strafe + turn), -1.0, 1.0);
         rightPower = Range.clip(1 * (drive - strafe - turn), -1.0, 1.0);
         rightBackPower = Range.clip(1 * (drive + strafe - turn), -1.0, 1.0);
         // Send calculated power to wheels
-        leftDrive.setPower(leftPower);
-        rightDrive.setPower(rightPower);
-        backLeftDrive.setPower(leftBackPower);
-        backRightDrive.setPower(rightBackPower);
-        lift.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
-        if (gamepad1.b) {
+        if(gamepad2.y){
+            leftDrive.setPower(leftPower/2.0);
+            rightDrive.setPower(rightPower/2.0);
+            backLeftDrive.setPower(leftBackPower/2.0);
+            backRightDrive.setPower(rightBackPower/2.0);
+        }
+        else{
+            leftDrive.setPower(leftPower);
+            rightDrive.setPower(rightPower);
+            backLeftDrive.setPower(leftBackPower);
+            backRightDrive.setPower(rightBackPower);
+        }
+//        lift.setPower((gamepad1.right_trigger-gamepad1.left_trigger));
+        if (gamepad2.b) {
             toggle=false;
-        } else if (gamepad1.a) {
+        } else if (gamepad2.a) {
             toggle=true;
         }
         if (gamepad1.right_bumper) {
-            arm.setPosition(0.5);
+            armPosition=1f;
         } else if (gamepad1.left_bumper) {
-            arm.setPosition(0);
+            armPosition=0f;
         }
-        if (gamepad1.dpad_left) {
-            turret.setPosition(0);
-        } else if (gamepad1.dpad_right) {
-            turret.setPosition(-0.5);
+        if (gamepad1.dpad_right) {
+            turretPosition-=0.001;
+        } else if (gamepad1.dpad_left) {
+            turretPosition+=0.001;
         }
-//        if(gamepad2.right_bumper && !wasPressed){
-//            isClosed = !isClosed;
-//            if(isClosed){
-//                arm.setPosition(0.5);
-//            }
-//            else{
-//                arm.setPosition(0.0);
-//            }
-//        }
-//        wasPressed = gamepad1.left_bumper;
+        if (gamepad1.y) {
+            turretPosition=0.61f;
+        } else if (gamepad1.b) {
+            turretPosition=.5f;
+        } else if (gamepad1.a) {
+            turretPosition=.38f;
+        }
 
         // Show the elapsed game time and wheel power.
 
+        turret.setPosition(turretPosition);
+        arm.setPosition(armPosition);
+        if(gamepad1.dpad_up){
+            lift.setTargetPosition(startPosition-4600);//-2700
+            lifting=true;
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        if (gamepad1.dpad_down) {
+            lifting=false;
+        }
+        if (lifting) {
+            lift.setPower(1);
+        } else {
+            lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            lift.setPower(-(gamepad1.right_trigger-gamepad1.left_trigger));
+        }
+        if (gamepad2.x) {
+            lift.setPower(0);
+        }
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.addData("Motors", "left back (%.2f), right back (%.2f)", leftBackPower, rightBackPower);
+        telemetry.addData("Division Factor", divisionFactor);
+        telemetry.addData("Lift position", lift.getCurrentPosition());
+        telemetry.addData("Lift Mode",lift.getMode());
         telemetry.addData("Turret Position", turret.getPosition());
         telemetry.addData(Float.toString(heading), "imu");
         telemetry.addData("toggle",String.valueOf(toggle));
         telemetry.update();             // Update telemetry with any new data
+        //top lift position: -2875
+        //bottom
     }
 
 }
