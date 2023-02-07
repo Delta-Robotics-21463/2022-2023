@@ -26,6 +26,8 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.apriltag.AprilTagDetection;
@@ -60,10 +62,19 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
     int MIDDLE=2;
     int RIGHT=3;
     AprilTagDetection tagOfInterest = null;
+    DcMotor lift;
+    Servo turret;
+    Servo arm;
 
     @Override
     public void runOpMode()
     {
+        arm=hardwareMap.get(Servo.class, "arm");
+        turret=hardwareMap.get(Servo.class, "turret");
+        lift = hardwareMap.get(DcMotor.class,"lift");
+        lift.setTargetPosition(0);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        int startPosition=lift.getCurrentPosition();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
@@ -177,32 +188,62 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
                 .forward(30)
                 .build();
         Trajectory leftTrajectory = drive.trajectoryBuilder(new Pose2d(-60,-60))
-                .strafeLeft(30)
+                .strafeLeft(35)
                 .build();
         Trajectory rightTrajectory = drive.trajectoryBuilder(new Pose2d(-60,-60))
-                .strafeRight(30)
+                .strafeRight(35)
                 .build();
+        Trajectory forward = drive.trajectoryBuilder(new Pose2d(0,0))
+                .forward(52)
+                .build();
+        Trajectory strafeRight=drive.trajectoryBuilder((new Pose2d(0,0)))
+                        .forward(27)
+                        .build();
+        Trajectory backward=drive.trajectoryBuilder((new Pose2d(0,0)))
+                        .back(43)
+                                .build();
+        Trajectory right=drive.trajectoryBuilder(new Pose2d(0,0))
+                        .strafeRight(10)
+                        .build();
+        arm.setPosition(0);
+        turret.setPosition(0.61);
+        drive.followTrajectory(forward);
+        drive.turn(Math.toRadians(95));
+        lift.setTargetPosition(startPosition-520);
+        while (lift.getCurrentPosition()>startPosition-520 && opModeIsActive()) {
+            lift.setPower(1);
+        }
+        drive.followTrajectory(strafeRight);
+        arm.setPosition(1);
+
+        lift.setTargetPosition(startPosition-4500);
+        while (lift.getCurrentPosition()>startPosition-4400 && opModeIsActive()) {
+            lift.setPower(1);
+        }
+        turret.setPosition(.5);
+        drive.followTrajectory(backward);
+        drive.followTrajectory(right);
+        arm.setPosition(0);
+
         /* Actually do something useful */
-       if (tagOfInterest==null|| tagOfInterest.id==LEFT) {
-           waitForStart();
-           if(isStopRequested()) return;
-           telemetry.addLine("Left");
-           telemetry.update();
-           drive.followTrajectory(leftTrajectory);
-           drive.followTrajectory(myTrajectory);
-           // TODO: add trajectory
-       } else if (tagOfInterest.id==MIDDLE) {
-           telemetry.addLine("Middle");
-           telemetry.update();
-           drive.followTrajectory(myTrajectory);
-           // TODO: add trajectory
-       } else if (tagOfInterest.id==RIGHT) {
-              telemetry.addLine("Right");
-              telemetry.update();
-              drive.followTrajectory(rightTrajectory);
-              drive.followTrajectory(myTrajectory);
-              // TODO: add trajectory
-       }
+//       if (tagOfInterest==null|| tagOfInterest.id==LEFT) {
+//           telemetry.addLine("Left");
+//           telemetry.update();
+//           drive.followTrajectory(leftTrajectory);
+//           drive.followTrajectory(myTrajectory);
+//           // TODO: add trajectory
+//       } else if (tagOfInterest.id==MIDDLE) {
+//           telemetry.addLine("Middle");
+//           telemetry.update();
+//           drive.followTrajectory(myTrajectory);
+//           // TODO: add trajectory
+//       } else if (tagOfInterest.id==RIGHT) {
+//              telemetry.addLine("Right");
+//              telemetry.update();
+//              drive.followTrajectory(rightTrajectory);
+//              drive.followTrajectory(myTrajectory);
+//              // TODO: add trajectory
+//       }
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
 
     }
