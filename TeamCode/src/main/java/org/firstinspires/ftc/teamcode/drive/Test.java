@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-public class Test extends OpMode {
+public class Assignment1 extends OpMode {
     DcMotor LeftForward = null;
     DcMotor RightForward = null;
     DcMotor LeftBackward = null;
@@ -24,21 +24,23 @@ public class Test extends OpMode {
 
     @Override
     public void loop(){
-        if(gamepad1.left_stick_y != 0.0){
-            LeftForward.setPower(-gamepad1.left_stick_y);
-            LeftBackward.setPower(-gamepad1.left_stick_x);
-
-        }else{
-            LeftForward.setPower(0.0);
-            LeftBackward.setPower(0.0);
+        if(gamepad1.left_stick_y > 0){
+            LeftForward.setPower(1.0);
+            RightForward.setPower(1.0);
+            LeftBackward.setPower(1.0);
+            RightBackward.setPower(1.0);
         }
+        if(gamepad1.left_stick_y < 0){
+            LeftForward.setPower(-1.0);
+            RightForward.setPower(-1.0);
+            LeftBackward.setPower(-1.0);
+            RightBackward.setPower(-1.0);
+        } else {
+            LeftForward.setPower(0.0);
+            LeftForward.setPower(0.0);
+            LeftForward.setPower(0.0);
+            LeftForward.setPower(0.0);
 
-        if(gamepad1.right_stick_y != 0.0){
-            RightForward.setPower(-gamepad1.right_stick_y);
-            RightBackward.setPower(-gamepad1.right_stick_y);
-        }else{
-            RightForward.setPower(0.0);
-            RightBackward.setPower(0.0);
         }
     }
 }
