@@ -11,6 +11,7 @@ public class Test extends OpMode {
     DcMotor RightForward = null;
     DcMotor LeftBackward = null;
     DcMotor RightBackward = null;
+    @Override
     public void init(){
         LeftForward = hardwareMap.get(DcMotor.class, "LeftBackward");
         RightForward = hardwareMap.get(DcMotor.class, "RightForward");
@@ -21,6 +22,7 @@ public class Test extends OpMode {
         LeftBackward.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
+    @Override
     public void loop(){
         if(gamepad1.left_stick_y != 0.0){
             LeftForward.setPower(-gamepad1.left_stick_y);
