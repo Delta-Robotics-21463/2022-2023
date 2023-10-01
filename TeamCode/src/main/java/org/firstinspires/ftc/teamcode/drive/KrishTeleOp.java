@@ -26,12 +26,12 @@ public class KrishTeleOp extends OpMode {
     public void loop() {
         double drive=gamepad1.left_stick_y;
         double turn = gamepad1.left_stick_x;
-        double frontPower = Range.clip((drive + turn), -1.0, 1.0);
-        double backPower = Range.clip((drive + turn), -1.0, 1.0);
-        frontLeft.setPower(frontPower);
-        frontRight.setPower(frontPower);
-        backLeft.setPower(backPower);
-        backRight.setPower(backPower);
+        double leftPower = Range.clip((drive + turn), -1.0, 1.0);
+        double rightPower = Range.clip((drive + turn), -1.0, 1.0);
+        frontLeft.setPower(leftPower);
+        frontRight.setPower(rightPower);
+        backLeft.setPower(leftPower);
+        backRight.setPower(rightPower);
     }
 
 }
