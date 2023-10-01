@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.drive;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
 public class KrishTeleOp extends OpMode {
@@ -15,32 +16,22 @@ public class KrishTeleOp extends OpMode {
     public void init() {
         frontLeft = hardwareMap.get(DcMotor.class, "leftDrive");
         frontRight = hardwareMap.get(DcMotor.class, "rightDrive");
-        backLeft = hardwareMap.get(DcMotor.class, "backLeftDrive" );
-        backRight =  hardwareMap.get(DcMotor.class, "backRightDrive" );
+        backLeft = hardwareMap.get(DcMotor.class, "backLeftDrive");
+        backRight = hardwareMap.get(DcMotor.class, "backRightDrive");
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
-    }
 
+    }
     public void loop() {
-        if (gamepad1.left_stick_y != 0.0) {
-            frontLeft.setPower(-gamepad1.left_stick_y);
-            backLeft.setPower(-gamepad1.left_stick_y);
-        }
-        else
-        {
-            frontLeft.setPower(0.0);
-            backLeft.setPower(0.0);
-        }
-        if (gamepad1.right_stick_y != 0.0) {
-            frontRight.setPower(-gamepad1.right_stick_y);
-            backRight.setPower(-gamepad1.right_stick_y);
-        }
-        else
-        {
-            frontRight.setPower(0.0);
-            backRight.setPower(0.0);
-        }
+        double drive=gamepad1.left_stick_y;
+        double turn = gamepad1.left_stick_x;
+        double frontPower = Range.clip((drive + turn), -1.0, 1.0);
+        double backPower = Range.clip((drive + turn), -1.0, 1.0);
+        frontLeft.setPower(frontPower);
+        frontRight.setPower(frontPower);
+        backLeft.setPower(backPower);
+        backRight.setPower(backPower);
     }
 
 }
