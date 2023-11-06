@@ -36,10 +36,10 @@ public class Assignment1 extends OpMode {
             LeftBackward.setPower(-1.0);
             RightBackward.setPower(-1.0);
         } else {
-            LeftForward.setPower(0.0);
-            LeftForward.setPower(0.0);
-            LeftForward.setPower(0.0);
-            LeftForward.setPower(0.0);
+            LeftForward.setPower(1.0);
+            LeftForward.setPower(1.0);
+            LeftForward.setPower(1.0);
+            LeftForward.setPower(1.0);
 
         }
     }
